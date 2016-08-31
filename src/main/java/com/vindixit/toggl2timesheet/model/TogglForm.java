@@ -2,8 +2,6 @@ package com.vindixit.toggl2timesheet.model;
 
 import java.util.List;
 
-import com.vindixit.toggl2timesheet.TimeEntry;
-
 public class TogglForm {
 
 	private String urlSpreadSheet;

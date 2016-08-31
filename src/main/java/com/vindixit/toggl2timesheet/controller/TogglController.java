@@ -36,8 +36,8 @@ import com.google.api.services.sheets.v4.Sheets;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import com.vindixit.toggl2timesheet.TimeEntry;
-import com.vindixit.toggl2timesheet.Toggl;
+import com.vindixit.toggl2timesheet.model.TimeEntry;
+import com.vindixit.toggl2timesheet.model.Toggl;
 import com.vindixit.toggl2timesheet.model.TogglForm;
 import com.vindixit.toggl2timesheet.util.DateUtil;
 
