@@ -24,7 +24,7 @@
 		<form action="toggl" method="post">
 			<h4>URL da Planilha de Controle de Horas:</h4> 
 			<input
-				type="text" size="80" name="id" id="id"
+				type="text" size="80" name="urlSpreadSheet" id="urlSpreadSheet"
 				value="https://docs.google.com/spreadsheets/d/1JiknYifrwqkvuSQY1iebe0-ivEkURtM03DByjvIVLEk/edit#gid=23"
 				class="url" />
 			<button type=submit>Gerar</button>
@@ -40,13 +40,13 @@
 				value=""
 				class="url" />
 			<br>
+			  <md-content>
+			    <h4>Data Inicial</h4>
+			    <md-datepicker ng-model="startDate" md-placeholder="Início"></md-datepicker>
+			    <h4>Data Final</h4>
+			    <md-datepicker ng-model="endDate" md-placeholder="Fim"></md-datepicker>
+			  </md-content>
 		</form>
-	  <md-content>
-	    <h4>Data Inicial</h4>
-	    <md-datepicker ng-model="startDate" md-placeholder="Início"></md-datepicker>
-	    <h4>Data Final</h4>
-	    <md-datepicker ng-model="endDate" md-placeholder="Fim"></md-datepicker>
-	  </md-content>
 	</div>
     <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>

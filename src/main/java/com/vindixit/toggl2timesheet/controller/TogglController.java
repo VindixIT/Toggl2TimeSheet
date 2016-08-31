@@ -110,7 +110,7 @@ public class TogglController {
 
 	@RequestMapping(value = "/toggl", method = RequestMethod.POST)
 	public String togglSubmit(@ModelAttribute TogglForm togglForm, Model model) {
-		Toggl toggl = new Toggl("masaru@logusinfo.com.br", "Kawasemi123");
+		Toggl toggl = new Toggl(togglForm.getLogin(), togglForm.getSenha());
         Client client = toggl.prepareClient();
         WebResource webResource = client.resource(Toggl.TIME_ENTRIES);
         Date startDate = null;
