@@ -41,7 +41,7 @@ import com.vindixit.toggl2timesheet.model.Toggl;
 import com.vindixit.toggl2timesheet.model.TogglForm;
 import com.vindixit.toggl2timesheet.util.DateUtil;
 
-@Controller
+//@Controller
 public class TogglController {
 
 	private static HttpTransport HTTP_TRANSPORT;
