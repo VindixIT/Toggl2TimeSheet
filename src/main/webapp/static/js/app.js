@@ -1,2 +1,2 @@
 'use strict';
-var App = angular.module('togglApp',[]);
+var App = angular.module('myApp',[]);

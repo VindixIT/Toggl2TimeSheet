@@ -1,8 +1,8 @@
 'use strict';
  
-angular.module('togglApp').factory('UserService', ['$http', '$q', function($http, $q){
+angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://localhost:8080/Toggl2TimeSheet/toggl/';
+    var REST_SERVICE_URI = 'http://localhost:8080/Toggl2TimeSheet/user/';
  
     var factory = {
         fetchAllUsers: fetchAllUsers,
