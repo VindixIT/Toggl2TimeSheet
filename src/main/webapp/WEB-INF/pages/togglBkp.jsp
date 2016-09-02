@@ -18,7 +18,7 @@
 </script>
   </head>
 
-  <body translate="no" ng-app="MyApp" ng-controller="AppCtrl">
+  <body translate="no" ng-app="myApp" ng-controller="AppCtrl">
     <div  style="padding: 40px;" class="datepickerdemoBasicUsage">
   	<h2>Toggl2TimeSheet</h2>
 		<form action="toggl" method="post">
@@ -57,9 +57,9 @@
 	<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
 	<script src='https://gitcdn.xyz/repo/angular/bower-material/v0.11.0-master-46c7b18/angular-material.js'></script>
-	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>
+	<script	src="<c:url value='/static/js/cache/assets-cache.js' />"></script>
     <script type="text/javascript">
-					angular.module('MyApp').controller('AppCtrl',
+					angular.module('myApp').controller('AppCtrl',
 							function($scope) {
 							}).config(
 							function($mdDateLocaleProvider) {

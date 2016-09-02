@@ -44,14 +44,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
-<body ng-app="myApp" class="ng-cloak">
-					<md-content>
-							<label class="col-md-2 control-lable" for="email">Data Inicial</label>
-							<md-datepicker ng-model="ctrl.user.startDate" md-placeholder="Início"></md-datepicker>
-							<label class="col-md-2 control-lable" for="email">Data Final</label>
-							<md-datepicker ng-model="ctrl.user.startDate" md-placeholder="Fim"></md-datepicker>
-					</md-content>
-	<div class="generic-container" ng-controller="UserController as ctrl">
+<body ng-app="myApp" class="ng-cloak"  ng-controller="UserController as ctrl">
+	<div class="generic-container">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="lead">Toggl 2 TimeSheet</span>
@@ -102,6 +96,17 @@
 										required field</span> <span ng-show="myForm.email.$invalid">This
 										field is invalid </span>
 								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="email">Data Inicial</label>
+							<div class="col-md-7">
+								<md-content>
+									<md-datepicker ng-model="ctrl.user.email" md-placeholder="Início"></md-datepicker>
+								</md-content>
 							</div>
 						</div>
 					</div>
@@ -164,7 +169,19 @@
 	<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
 	<script	src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
 	<script	src='https://gitcdn.xyz/repo/angular/bower-material/v0.11.0-master-46c7b18/angular-material.js'></script>
-	<script	src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>
-
+	<script	src="<c:url value='/static/js/cache/assets-cache.js' />"></script>
+    <script type="text/javascript">
+					angular.module('myApp').controller('UserController',
+							function($scope) {
+							}).config(
+							function($mdDateLocaleProvider) {
+								$mdDateLocaleProvider.formatDate = function(
+										date) {
+									return !date ? '' : moment(date).format(
+											'DD/MM/YYYY');
+								};
+							});
+					
+				</script>
 </body>
 </html>
