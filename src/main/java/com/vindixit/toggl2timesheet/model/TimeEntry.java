@@ -11,21 +11,17 @@ import com.vindixit.toggl2timesheet.model.Project;
 import com.vindixit.toggl2timesheet.model.Workspace;
 import com.vindixit.toggl2timesheet.util.DateUtil;;
 
-/**
- * 
- * @author Simon Martinelli
- */
-public class TimeEntry {
+public abstract class TimeEntry {
 
     private Long id;
-    private String description;
+    protected String description;
     private Project project;
-    private Date start;
-    private Date stop;
-    private long duration;
+    protected Date start;
+    protected Date stop;
+    protected long duration;
     private Boolean billable;
     private Workspace workspace;
-    private List<String> tag_names = new ArrayList<String>();
+    private List<String> tag_names = new ArrayList<String>();	
     private String created_with;
     private Boolean duronly;
 	private Long pid;
@@ -78,16 +74,8 @@ public class TimeEntry {
         this.billable = billable;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getDuration() {
-        return duration;
     }
 
     public void setDuration(long duration) {
@@ -119,16 +107,8 @@ public class TimeEntry {
 		this.pid = project.getId();
     }
 
-    public Date getStart() {
-        return start;
-    }
-
     public void setStart(Date start) {
         this.start = start;
-    }
-
-    public Date getStop() {
-        return stop;
     }
 
     public void setStop(Date stop) {
@@ -234,7 +214,13 @@ public class TimeEntry {
 		}
         return object;
     }
+    
+	public abstract String getDuration();
 
+	public abstract String getStart();
+
+	public abstract String getStop();
+	
     public String toJSONString() {
         return this.toJSONObject().toJSONString();
     }

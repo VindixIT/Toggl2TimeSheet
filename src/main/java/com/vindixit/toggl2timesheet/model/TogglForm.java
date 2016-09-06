@@ -1,62 +1,51 @@
 package com.vindixit.toggl2timesheet.model;
 
-import java.util.List;
-
 public class TogglForm {
 
-	private String urlSpreadSheet;
-	private String login;
-	private String senha;
-	private String startDate;
-	private String endDate;
-	private List<TimeEntry> timeEntries;
+	private String url;
+	private String username;
+	private String password;
+	private String start;
+	private String end;
 
-	public String getUrlSpreadSheet() {
-		return urlSpreadSheet;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setUrlSpreadSheet(String urlSpreadSheet) {
-		this.urlSpreadSheet = urlSpreadSheet;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public String getStart() {
+		return start;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public String getEndDate() {
-		return endDate;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
-	public List<TimeEntry> getTimeEntries() {
-		return timeEntries;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setTimeEntries(List<TimeEntry> timeEntries) {
-		this.timeEntries = timeEntries;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

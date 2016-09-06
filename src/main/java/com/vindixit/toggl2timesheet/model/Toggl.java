@@ -146,7 +146,7 @@ public class Toggl {
         if (data != null) {
 	        for (Object obj : data) {
 	            JSONObject entryObject = (JSONObject) obj;
-	            entries.add(new TimeEntry(entryObject.toJSONString()));
+	            entries.add(new SimpleTimeEntry(entryObject.toJSONString()));
 	        }
         }
         return entries;
@@ -175,7 +175,7 @@ public class Toggl {
         if (data == null)
         	return null;
 
-        return new TimeEntry(data.toJSONString());
+        return new SimpleTimeEntry(data.toJSONString());
     }
 
 	/**
@@ -199,7 +199,7 @@ public class Toggl {
 		if (data == null)
 			return null;
 
-		return new TimeEntry(data.toJSONString());
+		return new SimpleTimeEntry(data.toJSONString());
 	}
 
     /**
@@ -218,7 +218,7 @@ public class Toggl {
 
         object = (JSONObject) JSONValue.parse(response);
         JSONObject data = (JSONObject) object.get(DATA);
-        return new TimeEntry(data.toJSONString());
+        return new SimpleTimeEntry(data.toJSONString());
     }
     
 	/**
@@ -238,7 +238,7 @@ public class Toggl {
 
         object = (JSONObject) JSONValue.parse(response);
         JSONObject data = (JSONObject) object.get(DATA);
-        return new TimeEntry(data.toJSONString());
+        return new SimpleTimeEntry(data.toJSONString());
     }
     
 	/**
@@ -259,7 +259,7 @@ public class Toggl {
 
         object = (JSONObject) JSONValue.parse(response);
         JSONObject data = (JSONObject) object.get(DATA);
-        return new TimeEntry(data.toJSONString());
+        return new SimpleTimeEntry(data.toJSONString());
     }
 
     /**
@@ -279,7 +279,7 @@ public class Toggl {
 
         object = (JSONObject) JSONValue.parse(response);
         JSONObject data = (JSONObject) object.get(DATA);
-        return new TimeEntry(data.toJSONString());
+        return new SimpleTimeEntry(data.toJSONString());
     }
 
     /**

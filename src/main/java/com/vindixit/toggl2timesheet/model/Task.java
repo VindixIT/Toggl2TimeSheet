@@ -21,10 +21,6 @@ package com.vindixit.toggl2timesheet.model;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-/**
- * 
- * @author Simon Martinelli
- */
 public class Task {
 
     private Long id;

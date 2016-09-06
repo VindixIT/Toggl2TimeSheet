@@ -3,10 +3,6 @@ package com.vindixit.toggl2timesheet.model;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-/**
- * 
- * @author Masaru Ohashi Júnior
- */
 public class Client {
 
     private Long id;

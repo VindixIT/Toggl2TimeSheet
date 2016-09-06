@@ -2,21 +2,11 @@ package com.vindixit.toggl2timesheet.controller;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.core.MultivaluedMap;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,41 +23,49 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.sheets.v4.Sheets;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
-import com.vindixit.toggl2timesheet.model.TimeEntry;
-import com.vindixit.toggl2timesheet.model.Toggl;
+import com.google.api.services.sheets.v4.Sheets.Spreadsheets;
+import com.google.api.services.sheets.v4.model.Spreadsheet;
+import com.google.api.services.sheets.v4.model.ValueRange;
 import com.vindixit.toggl2timesheet.model.TogglForm;
-import com.vindixit.toggl2timesheet.util.DateUtil;
 
-//@Controller
+@Controller
 public class TogglController {
 
 	private static HttpTransport HTTP_TRANSPORT;
 	private static GoogleAuthorizationCodeFlow flow;
 	private static Credential credential;
 	/*
-	 * masaru@vindixit.com
-	 */
-//	private static String CLIENT_ID = "466497924499-js8fap6fktmrao13btga74ibjt4pl438.apps.googleusercontent.com";
-//	private static String CLIENT_SECRET = "sbTA1m5fVAT1BMF2tO9hTu4g";
-	/*
 	 * masaru@logusinfo.com.br
 	 */
-	 private static String CLIENT_ID = "44576340185-2u983rv38nm19taqv4msoeadf6s1ra4k.apps.googleusercontent.com";
-	 private static String CLIENT_SECRET = "BwjE-DEJlTxv2ivC9N9kh9Za";
+	private static String CLIENT_ID = "521236566498-56aiij0qacfflsf9fd7ct1fqoju2apnp.apps.googleusercontent.com";
+	private static String CLIENT_SECRET = "VfC8T3K1ZHdABQCfDbqAl1el";
 	private static String REDIRECT_URI = "http://localhost:8080/Toggl2TimeSheet/toggl";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final String APPLICATION_NAME = "Toggl2TimeSheet";
-	private static final String PATTERN = "dd/MM/yyyy";
 
 	@RequestMapping(value = "/toggl.do", method = RequestMethod.GET)
 	public RedirectView service(Model model) {
 		TogglForm togglForm = new TogglForm();
 		model.addAttribute("toggl", togglForm);
 		if (credential != null) {
-			return new RedirectView("toggl");
+			Sheets service;
+			try {
+				service = getSheetsService();
+				String spreadsheetId = togglForm.getUrl();
+				Spreadsheets spreadsheets = service.spreadsheets();
+
+				Spreadsheet spreadsheet = spreadsheets.get(spreadsheetId).setIncludeGridData(false).execute();
+				String gridName = spreadsheet.getSheets().get(spreadsheet.getSheets().size() - 1).getProperties()
+						.getTitle();
+				System.out.println(gridName);
+				String range = gridName + "!A2:AT";
+				ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
+				List<List<Object>> values = response.getValues();
+				return new RedirectView("toggl");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return new RedirectView(authorize());
 	}
@@ -108,48 +106,9 @@ public class TogglController {
 		return authorizationUrl.build();
 	}
 
-	@RequestMapping(value = "/toggl", method = RequestMethod.POST)
-	public String togglSubmit(@ModelAttribute TogglForm togglForm, Model model) {
-		Toggl toggl = new Toggl("masaru@logusinfo.com.br", "Kawasemi123");
-        Client client = toggl.prepareClient();
-        WebResource webResource = client.resource(Toggl.TIME_ENTRIES);
-        Date startDate = null;
-        Date endDate = null;
-		try {
-			startDate = new SimpleDateFormat(PATTERN).parse("01/01/2015");
-			endDate = new SimpleDateFormat(PATTERN).parse("31/01/2015");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-        if (startDate != null && endDate != null) {
-            MultivaluedMap<String,String> queryParams = new MultivaluedMapImpl();
-            queryParams.add("start_date", DateUtil.convertDateToString(startDate));
-            queryParams.add("end_date", DateUtil.convertDateToString(endDate));
-            webResource = webResource.queryParams(queryParams);
-        }
-        String response = webResource.get(String.class);
-        JSONArray data = (JSONArray) JSONValue.parse(response);
-
-        List<TimeEntry> entries = new ArrayList<TimeEntry>();
-        if (data != null) {
-	        for (Object obj : data) {
-	            JSONObject entryObject = (JSONObject) obj;
-	            TimeEntry timeEntry = new TimeEntry(entryObject.toJSONString());
-				entries.add(timeEntry);
-	        }
-        }
-		model.addAttribute("timeEntries", entries);
-		return "exportResult";
-	}
-	
 	public static Sheets getSheetsService() throws IOException {
 		return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME)
 				.build();
 	}
-	
-/*	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
-		return "index";
-	}*/
 
 }
