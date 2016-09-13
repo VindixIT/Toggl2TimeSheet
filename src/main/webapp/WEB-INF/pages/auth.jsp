@@ -68,8 +68,8 @@
             var image = document.createElement('img');
             image.src = resp.image.url;
             heading.appendChild(image);
+            alert(resp.displayName);
             heading.appendChild(document.createTextNode(resp.displayName));
-
             document.getElementById('content').appendChild(heading);
           });
         });
