@@ -20,9 +20,54 @@
 	padding-bottom: 200px;
 }
 </style>
-<script>
+<script type="text/javascript">
 	window.console = window.console || function(t) {
 	};
+	var url = 'https://docs.google.com/spreadsheets/d/1facRQohuorKLp4zd4FybIeZkEUz_EdtZMcMY6WJbp8I/edit#gid=0';
+	var clientId = '521236566498-56aiij0qacfflsf9fd7ct1fqoju2apnp.apps.googleusercontent.com';
+	var apiKey = 'AIzaSyAXuaq2t-LqOiH_Qsk6P5Nse5Eubv9Ofs0';
+	var scopes = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/plus.me"];
+	
+	function handleClientLoad() {
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+    }
+	
+	function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+    }
+	
+	function handleAuthResult(authResult) {
+		var nome;
+       	gapi.client.load('plus', 'v1', function() {
+               var request = gapi.client.plus.people.get({
+                 'userId': 'me'
+               });
+               request.execute(function(resp) {
+                 var heading = document.createElement('h4');
+                 var image = document.createElement('img');
+                 image.src = resp.image.url;
+                 heading.appendChild(image);
+                 nome = resp.displayName;
+                 heading.appendChild(document.createTextNode(nome));
+                 document.getElementById('content').appendChild(heading);
+               });
+             });
+       	var discoveryUrl =
+            'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(atualizar);
+        function atualizar(){
+        	gapi.client.sheets.spreadsheets.values.update({
+                spreadsheetId: '1facRQohuorKLp4zd4FybIeZkEUz_EdtZMcMY6WJbp8I',
+                range: 'Sheet1!B3',
+                valueInputOption: 'USER_ENTERED',
+                values: [ [ '123' ] ]
+            }).then(function(response) {
+                console.log(response);
+            });
+       	}
+       	window.open(url);
+    }
 </script>
 
 <style>
@@ -31,7 +76,6 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
-
 <body translate="no" ng-app="myApp" class="ng-cloak"
 	ng-controller="TogglController as ctrl">
 	<div class="generic-container">
@@ -136,6 +180,8 @@
 			</div>
 		</div>
 	</div>
+    <div id="content"></div>
+
 	<script
 		src="//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1"></script>
 	<script
@@ -155,8 +201,8 @@
 		src='https://gitcdn.xyz/repo/angular/bower-material/v0.11.0-master-46c7b18/angular-material.js'></script>
 	<script src="<c:url value='/static/js/cache/assets-cache.js' />"></script>
 	<script src="<c:url value='/static/js/service/toggl_service.js' />"></script>
-	<script
-		src="<c:url value='/static/js/controller/toggl_controller.js' />"></script>
+	<script src="<c:url value='/static/js/controller/toggl_controller.js' />"></script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>
 </html>
 
