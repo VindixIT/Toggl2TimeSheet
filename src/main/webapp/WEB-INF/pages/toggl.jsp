@@ -53,20 +53,7 @@
                  document.getElementById('content').appendChild(heading);
                });
              });
-       	var discoveryUrl =
-            'https://sheets.googleapis.com/$discovery/rest?version=v4';
-        gapi.client.load(discoveryUrl).then(atualizar);
-        function atualizar(){
-        	gapi.client.sheets.spreadsheets.values.update({
-                spreadsheetId: '1facRQohuorKLp4zd4FybIeZkEUz_EdtZMcMY6WJbp8I',
-                range: 'Sheet1!B3',
-                valueInputOption: 'USER_ENTERED',
-                values: [ [ '123' ] ]
-            }).then(function(response) {
-                console.log(response);
-            });
-       	}
-       	window.open(url);
+
     }
 </script>
 
@@ -134,7 +121,7 @@
 							<label class="col-md-2 control-lable" for="url">URL da
 								Planilha de Controle de Horas</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl2.togglForm.url" id="url"
+								<input type="text" ng-model="ctrl.togglForm.url" id="url"
 									class="url form-control input-sm" placeholder="Informe a URL"
 									required ng-minlength="3" />
 							</div>
@@ -144,8 +131,8 @@
 						<div class="form-actions floatRight">
 							<button type="button" ng-click="ctrl.submit()"
 								class="btn btn-primary btn-sm">Pesquisar</button>
-							<input type="submit" value="Exportar"
-								class="btn btn-primary btn-sm">
+							<button type="button" ng-click="ctrl.exportar()" 
+								class="btn btn-primary btn-sm">Exportar</button>
 							<button type="button" ng-click="ctrl.reset()"
 								class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset</button>
 						</div>

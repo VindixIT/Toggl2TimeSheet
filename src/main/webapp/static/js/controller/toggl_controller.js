@@ -6,6 +6,7 @@ angular.module('myApp').controller('TogglController', ['$scope', 'TogglService',
     self.timeEntries=[];
  
     self.submit = submit;
+    self.exportar = exportar;
     self.reset = reset;
  
     function fetchTimeEntries(togglForm){
@@ -25,6 +26,10 @@ angular.module('myApp').controller('TogglController', ['$scope', 'TogglService',
         fetchTimeEntries(self.togglForm);
     }
  
+    function exportar() {
+    	TogglService.fetchAbas(self.togglForm);
+    }
+    
     function reset(){
         self.togglForm={url:'',username:'',password:'',start:'',end:''};
         $scope.myForm.$setPristine(); //reset Form
