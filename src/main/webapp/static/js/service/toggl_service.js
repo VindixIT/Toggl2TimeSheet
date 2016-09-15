@@ -28,24 +28,24 @@ angular.module('myApp').factory('TogglService', ['$http', '$q', function($http, 
     
     
     function fetchAbas(togglForm) {
+    	var deferred = $q.defer();
 	   	var discoveryUrl =
 	        'https://sheets.googleapis.com/$discovery/rest?version=v4';
-	    gapi.client.load(discoveryUrl).then(getAbas);
+	    
+	   	gapi.client.load(discoveryUrl).then(getAbas);
+		
+	   	alert(togglForm.url);
+		
 	    function getAbas(){
         	var request = gapi.client.sheets.spreadsheets.get({
-                spreadsheetId: '1JiknYifrwqkvuSQY1iebe0-ivEkURtM03DByjvIVLEk',
+                spreadsheetId: '1YyfBSAAVRznTFGMzEs6sY0NkmN7D26hyNySpwpfD9MA',
                 includeGridData: true
             });
-        	
         	request.execute(function(resp) {
-              var sheets = resp.sheets;
-              var i = 0;
-              while(sheets[i] != undefined){
-            	  alert(sheets[i].properties.title);
-            	  i++;
-              }
+        		deferred.resolve(resp);
         	});
        	}
+	    return deferred.promise; 
     }
 
 }]);

@@ -4,6 +4,7 @@ angular.module('myApp').controller('TogglController', ['$scope', 'TogglService',
     var self = this;
     self.togglForm={url:'',username:'',password:'',start:'',end:''};
     self.timeEntries=[];
+    self.abas=[];
  
     self.submit = submit;
     self.exportar = exportar;
@@ -22,12 +23,16 @@ angular.module('myApp').controller('TogglController', ['$scope', 'TogglService',
     }
 
     function submit() {
-        console.log('Fetching Time Entries', self.toggl);
+        console.log('Fetching Time Entries', self.togglForm);
         fetchTimeEntries(self.togglForm);
     }
  
     function exportar() {
-    	TogglService.fetchAbas(self.togglForm);
+    	TogglService.fetchAbas(self.togglForm)
+    		.then(
+            function(d) {
+            	self.abas = d.sheets;
+            });
     }
     
     function reset(){

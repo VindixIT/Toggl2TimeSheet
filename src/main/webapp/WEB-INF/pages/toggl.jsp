@@ -9,7 +9,7 @@
 <head>
 <title>Toggl 2 TimeSheet</title>
 <link rel='stylesheet prefetch'
-	href='https://gitcdn.xyz/repo/angular/bower-material/v0.11.0-master-46c7b18/angular-material.css'>
+	href='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.css'>
 <style>
 .datepickerdemoBasicUsage {
 	/** Demo styles for mdCalendar. */
@@ -44,7 +44,7 @@
                  'userId': 'me'
                });
                request.execute(function(resp) {
-                 var heading = document.createElement('h4');
+                 var heading = document.createElement('h10');
                  var image = document.createElement('img');
                  image.src = resp.image.url;
                  heading.appendChild(image);
@@ -69,6 +69,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="lead">Toggl 2 TimeSheet</span>
+				<span style="alignment: right" id="content"></span>
 			</div>
 			<div class="formcontainer">
 				<form name="myForm" method="get" action="toggl.do"
@@ -128,6 +129,24 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="url">Selecione a aba que deseja exportar</label>
+							<div class="col-md-7">
+							<md-card>
+							<md-card-content>
+								<md-input-container> 
+									<label>Abas</label> 
+									<md-select ng-model="ctrl.abas"> 
+										<md-option> <em>Nenhuma</em></md-option>
+										<md-option ng-repeat="aba in ctrl.abas" ng-value="aba.properties.title"> {{aba.properties.title}} </md-option> 
+									</md-select> 
+								</md-input-container>
+							</md-card-content>
+							</md-card>
+							</div>
+						</div>
+					</div>
+					<div class="row">
 						<div class="form-actions floatRight">
 							<button type="button" ng-click="ctrl.submit()"
 								class="btn btn-primary btn-sm">Pesquisar</button>
@@ -167,8 +186,6 @@
 			</div>
 		</div>
 	</div>
-    <div id="content"></div>
-
 	<script
 		src="//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1"></script>
 	<script
@@ -183,9 +200,9 @@
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
 	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
 	<script
-		src='https://gitcdn.xyz/repo/angular/bower-material/v0.11.0-master-46c7b18/angular-material.js'></script>
+		src='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.js'></script>
 	<script src="<c:url value='/static/js/cache/assets-cache.js' />"></script>
 	<script src="<c:url value='/static/js/service/toggl_service.js' />"></script>
 	<script src="<c:url value='/static/js/controller/toggl_controller.js' />"></script>
