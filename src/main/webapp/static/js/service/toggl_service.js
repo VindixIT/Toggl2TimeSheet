@@ -6,6 +6,7 @@ angular.module('myApp').factory('TogglService', ['$http', '$q', function($http, 
  
     var factory = {
     	fetchTimeEntries: fetchTimeEntries,
+    	exportTimeEntries: exportTimeEntries,
     	fetchAbas: fetchAbas
     };
  
@@ -26,19 +27,33 @@ angular.module('myApp').factory('TogglService', ['$http', '$q', function($http, 
         return deferred.promise;
     }
     
+    function exportTimeEntries(togglForm, timeEntries) {
+       	var discoveryUrl =
+            'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(atualizar);
+        function atualizar(){
+        	gapi.client.sheets.spreadsheets.values.update({
+                spreadsheetId: togglForm.sheetId,
+                range: togglForm.abaSelecionada+'!B3',
+                valueInputOption: 'USER_ENTERED',
+                values: [ [ 'MASARU' ] ]
+            }).then(function(response) {
+                console.log(response);
+            });
+       	}
+       	window.open(togglForm.url);
+    }
+    
     
     function fetchAbas(togglForm) {
     	var deferred = $q.defer();
-	   	var discoveryUrl =
-	        'https://sheets.googleapis.com/$discovery/rest?version=v4';
+	   	var discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 	    
 	   	gapi.client.load(discoveryUrl).then(getAbas);
 		
-	   	alert(togglForm.url);
-		
 	    function getAbas(){
         	var request = gapi.client.sheets.spreadsheets.get({
-                spreadsheetId: '1YyfBSAAVRznTFGMzEs6sY0NkmN7D26hyNySpwpfD9MA',
+                spreadsheetId: togglForm.sheetId,
                 includeGridData: true
             });
         	request.execute(function(resp) {

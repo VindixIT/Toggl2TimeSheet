@@ -33,4 +33,15 @@ public class TogglRestController {
 		return responseEntity;
 	}
 	
+	@RequestMapping(value = "/toggl/", method = RequestMethod.PUT)
+	public ResponseEntity<ResponseWrapper> exportTimeEntries(@RequestBody TogglForm form,
+			UriComponentsBuilder ucBuilder) {
+		List<TimeEntry> timeEntries = togglService.findTimeEntries(form);
+		if (timeEntries.isEmpty()) {
+			return new ResponseEntity<ResponseWrapper>(HttpStatus.NO_CONTENT);
+		}
+		ResponseEntity<ResponseWrapper> responseEntity = new ResponseEntity<ResponseWrapper>(new ResponseWrapper(timeEntries), HttpStatus.OK);
+		return responseEntity;
+	}
+	
 }

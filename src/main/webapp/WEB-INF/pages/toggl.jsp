@@ -124,21 +124,23 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.togglForm.url" id="url"
 									class="url form-control input-sm" placeholder="Informe a URL"
-									required ng-minlength="3" />
+									required ng-minlength="3"/>
+								<button type="button" ng-click="ctrl.loadSheets()" 
+									class="btn btn-primary btn-sm">Carregar</button>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="url">Selecione a aba que deseja exportar</label>
+							<label class="col-md-2 control-lable" for="url">Selecione a aba para onde deseja exportar</label>
 							<div class="col-md-7">
 							<md-card>
 							<md-card-content>
 								<md-input-container> 
-									<label>Abas</label> 
-									<md-select ng-model="ctrl.abas"> 
+									<label>Aba de Destino</label> 
+									<md-select ng-model="ctrl.togglForm.abaSelecionada" placeholder="Selecione uma Aba"> 
 										<md-option> <em>Nenhuma</em></md-option>
-										<md-option ng-repeat="aba in ctrl.abas" ng-value="aba.properties.title"> {{aba.properties.title}} </md-option> 
+										<md-option ng-repeat="aba in ctrl.abas track by $index" ng-value="aba.properties.title"> {{aba.properties.title}} </md-option> 
 									</md-select> 
 								</md-input-container>
 							</md-card-content>
@@ -153,7 +155,7 @@
 							<button type="button" ng-click="ctrl.exportar()" 
 								class="btn btn-primary btn-sm">Exportar</button>
 							<button type="button" ng-click="ctrl.reset()"
-								class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset</button>
+								class="btn btn-warning btn-sm" ng-disabled="togglForm.$pristine">Reset</button>
 						</div>
 					</div>
 				</form>
